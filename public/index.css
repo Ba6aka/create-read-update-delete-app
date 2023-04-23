@@ -17,7 +17,7 @@ header {
     font-size: 32px;
 }
 
-.vocabulary-item{
+.vocabulary-item {
     display: flex;
 }
 
@@ -29,30 +29,37 @@ header {
     border: 1px solid gray;
 }
 
-
-.actions img{
+.actions img {
     width: 48px;
     height: 48px;
 }
 
-.actions ul li{
-    flex: 0 1 33.333%;
+form {
+    position: fixed;
+    bottom: 0;
+    left: 35%;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.delete{
-    height: 48px;
-    width: 48px;
-    background-image: 'images/icon-delete.png';
+input,
+textarea {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.update{
-    height: 48px;
-    width: 48px;
-    background-image: 'images/icon-update.png';
-}
-
-.view{
-    height: 48px;
-    width: 48px;
-    background-image: 'images/icon-view.png';
+button[type="submit"] {
+    display: block;
+    margin: 0 auto;
+    padding: 10px;
+    width: 100px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }

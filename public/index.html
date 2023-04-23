@@ -7,10 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD</title>
     <link rel="stylesheet" href="index.css">
+    <script defer src="servises.js"></script>
+    <script defer src="script.js"></script>
 </head>
 
 <body>
     <header>My CRUD app</header>
+
     <main>
         <div class="title">Words</div>
         <div class="vocabluary">
@@ -20,18 +23,19 @@
                 <span>short descr</span>
                 <span>Actions</span>
             </div>
-            <div class="vocabulary-item">
-                <span>Флекс</span>
-                <span>Flex</span>
-                <span>n</span>
-                <span class="actions">
-                    <img src="images/icon-trash.png"></img>
-                    <img src="images/icon-update.png"></img>
-                    <img src="images/icon-view.png"></img>
-                </span>
-            </div>
+       
         </div>
     </main>
+
+    <footer>
+        <form action=":javascript">
+            <input name="ua" type="text" placeholder="ua word">
+            <input name="eng" type="text" placeholder="eng word">
+            <input name="short" type="text" placeholder="short description">
+            <textarea name="descr" id="" cols="10" rows="3"></textarea>
+            <button type="submit">send form</button>
+        </form>
+    </footer>
 </body>
 
 </html>
