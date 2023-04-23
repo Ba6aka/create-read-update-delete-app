@@ -1,0 +1,58 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+header {
+    padding: 10px 0px 10px 5px;
+    text-align: left;
+    background-color: grey;
+    height: 40px;
+    font-size: 32px;
+}
+
+.title {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 32px;
+}
+
+.vocabulary-item{
+    display: flex;
+}
+
+.vocabulary-item span {
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    flex: 0 1 25%;
+    border: 1px solid gray;
+}
+
+
+.actions img{
+    width: 48px;
+    height: 48px;
+}
+
+.actions ul li{
+    flex: 0 1 33.333%;
+}
+
+.delete{
+    height: 48px;
+    width: 48px;
+    background-image: 'images/icon-delete.png';
+}
+
+.update{
+    height: 48px;
+    width: 48px;
+    background-image: 'images/icon-update.png';
+}
+
+.view{
+    height: 48px;
+    width: 48px;
+    background-image: 'images/icon-view.png';
+}
