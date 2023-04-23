@@ -1,5 +1,5 @@
 const voc = document.querySelector('.vocabluary')
-
+const form = document.querySelector('form')
 
 
 getData('/getAllFilles')
@@ -10,6 +10,25 @@ getData('/getAllFilles')
         console.log(err)
     })
 
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const formData = new FormData(form)
+
+    const data = {
+        ua: formData.get('ua'),
+        eng: formData.get('eng'),
+        short: formData.get('short'),
+        long: formData.get('descr')
+    }
+    console.log(data)
+    postData('/postWord', data)
+    .then((result) =>{
+        console.log(result)
+    })
+    .catch((err) =>{
+        console.log(err)
+    })
+})
 
 
 
