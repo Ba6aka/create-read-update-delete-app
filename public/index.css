@@ -53,7 +53,7 @@ textarea {
     box-sizing: border-box;
 }
 
-button[type="submit"] {
+button{
     display: block;
     margin: 0 auto;
     padding: 10px;
