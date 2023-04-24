@@ -5,19 +5,17 @@ const { ObjectId } = require('mongodb');
 const { url } = require('inspector');
 
 createServer(async function (req, res) {
-   
-    if (req.method == 'GET') {
-        serveFile(req.url, res)
-    } else if (req.method == 'POST'){
-        postFile(req, res)
+    switch (req.method) {
+        case ('GET'):
+            serveFile(req.url, res)
+            break
+        case ('POST'):
+            postFile(req, res)
+            break
+        case ('DELETE'):
+            deleteWord(req, res)
     }
 }).listen(process.env.PORT || 1337)
-
-
-
-
-
-
 
 async function serveFile(url, res) {
     let path = url
@@ -48,19 +46,19 @@ async function serveFile(url, res) {
     res.end(file)
 }
 
-function postFile(req,res){
-    if (req.method == 'POST'){
+function postFile(req, res) {
+    if (req.method == 'POST') {
         let body = '';
         req.on('data', chunk => {
             body += chunk.toString();
         });
-       
+
         connectToDb((err) => {
-           
+
             if (!err) {
-              
+
                 db = getDb()
-               
+                console.log(body)
                 db.collection('CRUD')
                     .insertOne(JSON.parse(body))
                     .then((word) => {
@@ -69,21 +67,20 @@ function postFile(req,res){
             }
         })
     }
-   
+
 }
 
-if (req.method == 'DELETE' && req.url.startsWith('/books/')) {
-       
+function deleteWord(req, res) {
     const id = req.url.split('/')[2]
-    console.log(id)
+
     connectToDb((err) => {
         if (!err) {
             db = getDb()
 
-            db.collection('test')
+            db.collection('CRUD')
                 .deleteOne({ _id: new ObjectId(id) })
-                .then((book) => {
-                    res.end(JSON.stringify(book))
+                .then((word) => {
+                    res.end(JSON.stringify(word))
                 })
         }
     })
