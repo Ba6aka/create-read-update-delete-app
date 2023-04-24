@@ -20,5 +20,16 @@ async function deleteData(url, data){
         method: 'DELETE'
     })
 
-    return response.json
+    return response.json()
+}
+
+async function updateData(url, data) {
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+
+     return response.json()
+
 }
