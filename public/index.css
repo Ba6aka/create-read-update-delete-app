@@ -9,35 +9,33 @@ header {
     background-color: grey;
     height: 40px;
     font-size: 32px;
+    margin-bottom: 40px;
 }
 
-.title {
-    margin: 10px 0;
+main{
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+table {
+  
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td {
+    padding: 8px;
     text-align: center;
-    font-size: 32px;
 }
 
-.vocabulary-item {
-    display: flex;
-}
-
-.vocabulary-item span {
-    padding: 10px;
-    justify-content: center;
-    text-align: center;
-    flex: 0 1 25%;
-    border: 1px solid gray;
-}
-
-.actions img {
-    width: 48px;
-    height: 48px;
+img {
+    width: 36px;
+    height: 36px;
 }
 
 form {
-    position: fixed;
-    bottom: 0;
-    left: 35%;
+    margin-top: 1%;
+    margin-left: 35%;
     width: 25%;
     background-color: #f1f1f1;
     padding: 20px;
@@ -53,7 +51,7 @@ textarea {
     box-sizing: border-box;
 }
 
-button{
+button {
     display: block;
     margin: 0 auto;
     padding: 10px;

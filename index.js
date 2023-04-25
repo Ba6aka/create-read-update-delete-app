@@ -1,39 +1,39 @@
-const { createServer } = require('http');
-const { readFileSync, writeFileSync, readdir, readdirSync } = require('fs');
+const { createServer } = require('http')
+const { readFileSync, } = require('fs')
 const { getDb, connectToDb, } = require('./db')
-const { ObjectId } = require('mongodb');
-const { url } = require('inspector');
+const { ObjectId } = require('mongodb')
 
-createServer(async function (req, res) {
-    console.log(req.method)
-    switch (req.method) {
-        case ('GET'):
-            serveFile(req, res)
-            break
-        case ('POST'):
-            postFile(req, res)
-            break
-        case ('DELETE'):
-            deleteWord(req, res)
-            break;
-        case ('PUT'):
-            updateWord(req, res)
-            break;
+let db
+connectToDb((err) => {
+    if (!err) {
+        db = getDb()
+        createServer(async function (req, res) {
+            switch (req.method) {
+                case 'GET':
+                    serveFile(req, res)
+                    break
+                case 'POST':
+                    postFile(req, res)
+                    break
+                case 'DELETE':
+                    deleteWord(req, res)
+                    break
+                case 'PUT':
+                    updateWord(req, res)
+                    break
+            }
+        }).listen(process.env.PORT || 1337)
     }
-}).listen(process.env.PORT || 1337)
+
+})
+
 
 async function serveFile(req, res) {
     let path = req.url
     let file
-
-    connectToDb((err) => {
-        if (!err) {
-            db = getDb()
-        }
-    })
-
     if (path == '/') {
         file = readFileSync(__dirname + '/public/' + '/index.html')
+
     } else if (path == '/getAllFilles') {
         let words = []
 
@@ -55,7 +55,6 @@ async function serveFile(req, res) {
                 file = (JSON.stringify(word))
             })
     }
-
     else {
         file = readFileSync(__dirname + '/public/' + path)
     }
@@ -63,65 +62,53 @@ async function serveFile(req, res) {
 }
 
 function postFile(req, res) {
-    if (req.method == 'POST') {
-        let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
-        });
+    let body = ''
 
-        connectToDb((err) => {
+    req.on('data', chunk => {
+        body += chunk.toString()
+    });
 
-            if (!err) {
-
-                db = getDb()
-                db.collection('CRUD')
-                    .insertOne(JSON.parse(body))
-                    .then((word) => {
-                        res.end(JSON.stringify(word))
-                    })
-            }
-        })
-    }
-
+    req.on('end', () =>{
+        db.collection('CRUD')
+        .insertOne(JSON.parse(body))
+        .then((word) => {
+            body = (JSON.parse(body))
+            body._id = word.insertedId
+            res.end(JSON.stringify(body))
+        }
+        )
+    })
+    
 }
 
 function deleteWord(req, res) {
     const id = req.url.split('/')[2]
+    
+    
+    db.collection('CRUD')
+        .deleteOne({ _id: new ObjectId(id) })
+        .then((word) => res.end(JSON.stringify(word)))
 
-    connectToDb((err) => {
-        if (!err) {
-            db = getDb()
-
-            db.collection('CRUD')
-                .deleteOne({ _id: new ObjectId(id) })
-                .then((word) => {
-
-                    res.end(JSON.stringify(word))
-                })
-        }
-    })
 }
 
 function updateWord(req, res) {
-    let body = '';
-    req.on('data', chunk => {
-        body += chunk.toString();
-    });
-
+    let body = ''
     const id = req.url.split('/')[2]
 
-    db = getDb()
-    connectToDb((err) => {
-        if (!err) {
-            db = getDb()
+    req.on('data', chunk => {
+        body += chunk.toString()
+    });
 
-            db.collection('CRUD')
-                .updateOne({ _id: new ObjectId(id) },
-                    { $set: JSON.parse(body) },)
-                .then(() => {
-                    res.end(JSON.stringify(body))
-                })
-        }
+    
+    req.on('end', () => {
+        db.collection('CRUD')
+            .updateOne({ _id: new ObjectId(id) },
+                { $set: JSON.parse(body) },)
+            .then((word) => {
+                res.end(body)
+            })
+            .catch((err) => console.log(err))
     })
+
 
 }
