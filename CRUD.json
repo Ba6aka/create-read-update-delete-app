@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "64453724e50bc70bd8a401ad"
+  },
+  "ua": "КСІ",
+  "eng": "CLI",
+  "short": "command line interface"
+},{
+  "_id": {
+    "$oid": "6446c8b88f9d90a840f6e7b5"
+  },
+  "ua": "12",
+  "eng": "sabsa",
+  "short": "sadb",
+  "long": "sabd"
+},{
+  "_id": {
+    "$oid": "6447f4519965c15037bd8067"
+  },
+  "ua": "2",
+  "eng": "2",
+  "short": "1",
+  "long": "1"
+}]
